@@ -1,0 +1,27 @@
+version: '3'
+services:
+  service-database:
+    image: postgres:10.17
+    ports:
+      - "5432:5432"
+    container_name: database
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+    networks:
+      - pg-net
+
+  service-pgAdmin:
+    image: dpage/pgadmin4
+    ports:
+      - "15432:80"
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@gmail.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    networks:
+      - pg-net
+# Conectar ambos os containers
+networks:
+  pg-net:
+    driver: bridge
+    
