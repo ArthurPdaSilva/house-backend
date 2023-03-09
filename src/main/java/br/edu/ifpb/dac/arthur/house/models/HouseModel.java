@@ -12,7 +12,7 @@ public class HouseModel implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy =  GenerationType.AUTO)
+    @GeneratedValue(strategy =  GenerationType.UUID)
     private UUID id;
     @Column(nullable = false, unique = true, length = 10)
     private String owner;
@@ -23,14 +23,31 @@ public class HouseModel implements Serializable {
     @Column(nullable = false)
     private Float width;
 
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ADDRESS_ID")
+    private AddressModel address;
+
+    public HouseModel() {
+    }
+
+    public HouseModel(String owner, String color, Float height, Float width, AddressModel address) {
+        this.owner = owner;
+        this.color = color;
+        this.height = height;
+        this.width = width;
+        this.address = address;
+    }
+
     @Override
     public String toString() {
-        return "HouseModel: \n" +
-                "id=" + id +
+        return "House: \n" +
+                "id: " + id +
                 ", owner: " + owner + '\'' +
                 ", color: " + color + '\'' +
                 ", height: " + height +
-                ", width: " + width;
+                ", width: " + width +
+                ", Address_ID: " + address.getId() +
+                "------------------------------------------------------------------";
     }
 
     public UUID getId() {
@@ -73,4 +90,11 @@ public class HouseModel implements Serializable {
         this.width = width;
     }
 
+    public AddressModel getAddress() {
+        return address;
+    }
+
+    public void setAddress(AddressModel address) {
+        this.address = address;
+    }
 }

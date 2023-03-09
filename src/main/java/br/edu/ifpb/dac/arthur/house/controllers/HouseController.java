@@ -1,10 +1,10 @@
 package br.edu.ifpb.dac.arthur.house.controllers;
 
+import br.edu.ifpb.dac.arthur.house.models.AddressModel;
 import br.edu.ifpb.dac.arthur.house.models.HouseModel;
-import br.edu.ifpb.dac.arthur.house.repositories.HouseRepository;
 import br.edu.ifpb.dac.arthur.house.services.HouseService;
-import br.edu.ifpb.dac.arthur.house.utils.ResponseMessage;
-import br.edu.ifpb.dac.arthur.house.utils.Validation;
+import br.edu.ifpb.dac.arthur.house.services.PanelService;
+import br.edu.ifpb.dac.arthur.house.services.ValidationHouseService;
 import org.springframework.stereotype.Controller;
 
 import java.util.List;
@@ -13,40 +13,28 @@ import java.util.List;
 public class HouseController {
 
     private final HouseService houseService;
+    private final PanelService panelService;
 
-    public HouseController(HouseService houseService) {
+    private final ValidationHouseService validationHouseService;
+
+    public HouseController(HouseService houseService, PanelService panelService, ValidationHouseService validationHouseService) {
         this.houseService = houseService;
-    }
-
-    public void create() throws Exception {
-        System.out.println("Ok, Who owns the house?");
-        String owner = ResponseMessage.message();
-
-        System.out.println("What's the color?");
-        String color = ResponseMessage.message();
-
-        System.out.println("What is the height of the house?");
-        Float height = Float.parseFloat(ResponseMessage.message());
-
-        System.out.println("What is the wide of the house?");
-        Float width = Float.parseFloat(ResponseMessage.message());
-
-        if(Validation.validationHouse(owner, color, height, width)) {
-            var newHouse = new HouseModel();
-            newHouse.setOwner(owner);
-            newHouse.setColor(color);
-            newHouse.setHeight(height);
-            newHouse.setWidth(width);
-            this.houseService.save(newHouse);
-        }
-
+        this.panelService = panelService;
+        this.validationHouseService = validationHouseService;
     }
 
     public void findAllHouses() {
         List<HouseModel> houses = this.houseService.findAll();
         for(HouseModel house: houses ) {
-            System.out.println(house);
+            panelService.print(house.toString());
         }
     }
 
+    public void save(String owner, String color, Float height, Float width, AddressModel addressModel) throws Exception {
+        if(validationHouseService.validationColor(color) || validationHouseService.validationOwner(owner)) {
+            if(validationHouseService.validationSize(height, width)) {
+                houseService.save(owner, color, height, width, addressModel);
+            }
+        }
+    }
 }
