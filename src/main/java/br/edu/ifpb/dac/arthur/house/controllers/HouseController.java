@@ -1,5 +1,6 @@
 package br.edu.ifpb.dac.arthur.house.controllers;
 
+import br.edu.ifpb.dac.arthur.house.exceptions.EntityNotFoundException;
 import br.edu.ifpb.dac.arthur.house.models.AddressModel;
 import br.edu.ifpb.dac.arthur.house.models.HouseModel;
 import br.edu.ifpb.dac.arthur.house.services.AddressService;
@@ -43,16 +44,16 @@ public class HouseController {
 
     public void findAll() {
         List<HouseModel> houses = this.houseService.findAll();
-        for(HouseModel house: houses ) {
+        for(HouseModel house: houses) {
             this.panelService.print(house.toString());
         }
     }
 
-    public void update(UUID id, String owner) {
+    public void update(UUID id, String owner) throws EntityNotFoundException {
         this.houseService.update(id, owner);
     }
 
-    public void delete(UUID id) {
+    public void delete(UUID id) throws EntityNotFoundException {
         this.houseService.delete(id);
     }
 }

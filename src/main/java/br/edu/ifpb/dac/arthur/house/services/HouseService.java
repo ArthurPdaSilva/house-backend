@@ -1,5 +1,6 @@
 package br.edu.ifpb.dac.arthur.house.services;
 
+import br.edu.ifpb.dac.arthur.house.exceptions.EntityNotFoundException;
 import br.edu.ifpb.dac.arthur.house.models.AddressModel;
 import br.edu.ifpb.dac.arthur.house.models.HouseModel;
 import br.edu.ifpb.dac.arthur.house.repositories.HouseRepository;
@@ -22,8 +23,11 @@ public class HouseService {
         this.houseRepository.save(houseModel);
     }
 
-    public HouseModel findById(UUID id) {
+    public HouseModel findById(UUID id) throws EntityNotFoundException {
         Optional<HouseModel> houseModelOptional = this.houseRepository.findById(id);
+        if(houseModelOptional.isEmpty()) {
+            throw new EntityNotFoundException();
+        }
         return houseModelOptional.get();
     }
 
@@ -31,13 +35,13 @@ public class HouseService {
         return this.houseRepository.findAll();
     }
 
-    public void update(UUID id, String owner) {
+    public void update(UUID id, String owner) throws EntityNotFoundException {
         HouseModel houseModel = this.findById(id);
         houseModel.setOwner(owner);
         this.save(houseModel);
     }
 
-    public void delete(UUID id) {
+    public void delete(UUID id) throws EntityNotFoundException {
         HouseModel houseModel = this.findById(id);
         this.houseRepository.delete(houseModel);
     }

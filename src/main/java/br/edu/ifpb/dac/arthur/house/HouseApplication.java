@@ -59,7 +59,7 @@ public class HouseApplication implements CommandLineRunner {
 
 						String[] houseAttributes = this.creationMenuService.creationHouse();
 						this.houseController.save(houseAttributes[0], houseAttributes[1],
-								houseAttributes[2], houseAttributes[3], addressId );
+								houseAttributes[2], houseAttributes[3], addressId);
 
 						panelService.print("Successfully registered!");
 					} catch (Exception e) {

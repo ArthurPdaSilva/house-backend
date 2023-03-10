@@ -1,5 +1,6 @@
 package br.edu.ifpb.dac.arthur.house.controllers;
 
+import br.edu.ifpb.dac.arthur.house.exceptions.EntityNotFoundException;
 import br.edu.ifpb.dac.arthur.house.models.AddressModel;
 import br.edu.ifpb.dac.arthur.house.services.AddressService;
 import br.edu.ifpb.dac.arthur.house.services.PanelService;
@@ -42,11 +43,11 @@ public class AddressController {
         }
     }
 
-    public void update(UUID id, String number) {
+    public void update(UUID id, String number) throws EntityNotFoundException {
         this.addressService.update(id, number);
     }
 
-    public void delete(UUID id) {
+    public void delete(UUID id) throws EntityNotFoundException {
         this.addressService.delete(id);
     }
 }
