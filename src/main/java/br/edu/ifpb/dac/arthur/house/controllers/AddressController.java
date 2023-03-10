@@ -19,14 +19,15 @@ public class AddressController {
         this.panelService = panelService;
     }
 
-    public AddressModel create(String street, String number, String city, String code, String country) throws Exception {
-        return  addressService.save(street, number, city, code, country);
+    public AddressModel create(String street, String number, String city, String code, String country) {
+        AddressModel addressModel = new AddressModel(street, number, city, code, country);
+        return this.addressService.save(addressModel);
     }
 
     public void findAllAddress() {
         List<AddressModel> addresses = this.addressService.findAll();
         for(AddressModel address: addresses ) {
-            panelService.print(address.toString());
+            this.panelService.print(address.toString());
         }
     }
 }

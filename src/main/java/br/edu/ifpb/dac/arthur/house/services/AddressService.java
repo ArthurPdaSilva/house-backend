@@ -19,20 +19,11 @@ public class AddressService {
 		this.addressRepository = addressRepository;
 	}
 
-	public AddressModel findById(UUID id) throws AddressNotFoundException {
-		Optional<AddressModel> addressModel = addressRepository.findById(id);
-		if(addressModel.isEmpty()) {
-			throw new AddressNotFoundException();
-		}
-		return addressModel.get();
-	}
-
 	public List<AddressModel> findAll() {
-		return addressRepository.findAll();
+		return this.addressRepository.findAll();
 	}
 
-	public AddressModel save(String street, String number, String city, String code, String country) {
-		AddressModel addressModel = new AddressModel(street, number, city, code, country);
-		return addressRepository.save(addressModel);
-	}
+	public AddressModel save(AddressModel addressModel) {
+		return this.addressRepository.save(addressModel);
+    }
 }

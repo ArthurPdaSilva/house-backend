@@ -26,14 +26,16 @@ public class HouseController {
     public void findAllHouses() {
         List<HouseModel> houses = this.houseService.findAll();
         for(HouseModel house: houses ) {
-            panelService.print(house.toString());
+            this.panelService.print(house.toString());
         }
     }
 
     public void save(String owner, String color, Float height, Float width, AddressModel addressModel) throws Exception {
         if(validationHouseService.validationColor(color) || validationHouseService.validationOwner(owner)) {
             if(validationHouseService.validationSize(height, width)) {
-                houseService.save(owner, color, height, width, addressModel);
+                HouseModel houseModel = new HouseModel(owner, color, height, width);
+                houseModel.setAddress(addressModel);
+                this.houseService.save(houseModel);
             }
         }
     }

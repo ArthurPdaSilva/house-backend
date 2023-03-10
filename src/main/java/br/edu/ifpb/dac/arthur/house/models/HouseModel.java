@@ -30,12 +30,11 @@ public class HouseModel implements Serializable {
     public HouseModel() {
     }
 
-    public HouseModel(String owner, String color, Float height, Float width, AddressModel address) {
+    public HouseModel(String owner, String color, Float height, Float width) {
         this.owner = owner;
         this.color = color;
         this.height = height;
         this.width = width;
-        this.address = address;
     }
 
     @Override

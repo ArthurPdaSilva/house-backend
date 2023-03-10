@@ -27,8 +27,7 @@ public class HouseService {
         return this.houseRepository.findAll();
     }
 
-    public void save(String owner, String color, Float height, Float width, AddressModel addressModel) {
-        HouseModel houseModel = new HouseModel(owner, color, height, width, addressModel);
-        houseRepository.save(houseModel);
+    public void save(HouseModel houseModel) {
+        this.houseRepository.save(houseModel);
     }
 }
