@@ -2,6 +2,8 @@ package br.edu.ifpb.dac.arthur.house;
 
 import br.edu.ifpb.dac.arthur.house.controllers.AddressController;
 import br.edu.ifpb.dac.arthur.house.controllers.HouseController;
+import br.edu.ifpb.dac.arthur.house.dtos.AddressDto;
+import br.edu.ifpb.dac.arthur.house.dtos.HouseDto;
 import br.edu.ifpb.dac.arthur.house.services.CreationMenuService;
 import br.edu.ifpb.dac.arthur.house.services.MessageService;
 import br.edu.ifpb.dac.arthur.house.services.PanelService;
@@ -9,6 +11,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import java.util.List;
 import java.util.UUID;
 
 @SpringBootApplication
@@ -49,17 +52,26 @@ public class HouseApplication implements CommandLineRunner {
 			var optionSelected = messageService.getResponse();
 
 			switch (optionSelected) {
-				case "1" -> houseController.findAll();
-				case "2" -> addressController.findAll();
+				case "1" -> {
+					List<HouseDto> houses = houseController.findAll();
+					for (HouseDto house: houses) {
+						panelService.print(house.toString());
+					}
+				}
+				case "2" -> {
+
+					List<AddressDto> addresses = addressController.findAll();
+					for(AddressDto address: addresses) {
+						panelService.print(address.toString());
+					}
+ 				}
 				case "3" -> {
 					try {
-						String[] addressAttributes = this.creationMenuService.creationAddress();
-						UUID addressId = this.addressController.save(addressAttributes[0], addressAttributes[1],
-								addressAttributes[2], addressAttributes[3], addressAttributes[4]);
+						AddressDto addressDto = this.creationMenuService.creationAddress();
+						UUID id = this.addressController.save(addressDto);
 
-						String[] houseAttributes = this.creationMenuService.creationHouse();
-						this.houseController.save(houseAttributes[0], houseAttributes[1],
-								houseAttributes[2], houseAttributes[3], addressId);
+						HouseDto houseDto = this.creationMenuService.creationHouse();
+						this.houseController.save(houseDto, id);
 
 						panelService.print("Successfully registered!");
 					} catch (Exception e) {

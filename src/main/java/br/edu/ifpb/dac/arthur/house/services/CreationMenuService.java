@@ -2,6 +2,8 @@ package br.edu.ifpb.dac.arthur.house.services;
 
 import br.edu.ifpb.dac.arthur.house.controllers.AddressController;
 import br.edu.ifpb.dac.arthur.house.controllers.HouseController;
+import br.edu.ifpb.dac.arthur.house.dtos.AddressDto;
+import br.edu.ifpb.dac.arthur.house.dtos.HouseDto;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -15,38 +17,42 @@ public class CreationMenuService {
         this.panelService = panelService;
     }
 
-    public String[] creationAddress() {
+    public AddressDto creationAddress() {
+        AddressDto addressDto = new AddressDto();
+
         panelService.print("First, what is the street?");
-        String street = messageService.getResponse();
+        addressDto.setStreet(messageService.getResponse());
 
         panelService.print("What is the number?");
-        String number = messageService.getResponse();
+        addressDto.setNumber(messageService.getResponse());
 
         panelService.print("What is the city?");
-        String city = messageService.getResponse();
+        addressDto.setCity(messageService.getResponse());
 
         panelService.print("What is the zip?");
-        String code = messageService.getResponse();
+        addressDto.setCode(messageService.getResponse());
 
         panelService.print("What is the country?");
-        String country = messageService.getResponse();
+        addressDto.setCountry(messageService.getResponse());
 
-        return new String[]{street, number, city, code, country};
+        return addressDto;
     }
 
-    public String[] creationHouse() {
+    public HouseDto creationHouse() {
+        HouseDto houseDto = new HouseDto();
+
         panelService.print("Ok, Who owns the house?");
-        String owner = messageService.getResponse();
+        houseDto.setOwner(messageService.getResponse());
 
         panelService.print("What's the color?");
-        String color = messageService.getResponse();
+        houseDto.setColor(messageService.getResponse());
 
         panelService.print("What is the height of the house?");
-        String height = messageService.getResponse();
+        houseDto.setHeight(Float.parseFloat(messageService.getResponse()));
 
         panelService.print("What is the wide of the house?");
-        String width = messageService.getResponse();
+        houseDto.setWidth(Float.parseFloat(messageService.getResponse()));
 
-        return new String[]{owner, color, height, width};
+        return houseDto;
     }
 }

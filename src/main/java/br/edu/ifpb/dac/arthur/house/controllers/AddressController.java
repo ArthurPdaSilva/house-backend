@@ -1,46 +1,49 @@
 package br.edu.ifpb.dac.arthur.house.controllers;
 
+import br.edu.ifpb.dac.arthur.house.dtos.AddressDto;
 import br.edu.ifpb.dac.arthur.house.exceptions.EntityNotFoundException;
 import br.edu.ifpb.dac.arthur.house.models.AddressModel;
 import br.edu.ifpb.dac.arthur.house.services.AddressService;
 import br.edu.ifpb.dac.arthur.house.services.PanelService;
-import br.edu.ifpb.dac.arthur.house.services.ValidationService;
+import jakarta.validation.Valid;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Controller;
 
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 @Controller
 public class AddressController {
 
     private final AddressService addressService;
-    private final PanelService panelService;
-    private final ValidationService validationService;
 
-    public AddressController(AddressService addressService, PanelService panelService, ValidationService validationService) {
+    public AddressController(AddressService addressService, PanelService panelService) {
         this.addressService = addressService;
-        this.panelService = panelService;
-        this.validationService = validationService;
     }
 
-    public UUID save(String street, String number, String city, String code, String country) throws Exception {
-        if(validationService.validationLength(street) || validationService.validationLength(number)) {
-            if(validationService.validationLength(city) || validationService.validationLength(country)) {
-                if(validationService.validationCode(code)) {
-                    AddressModel addressModel = new AddressModel(street, number, city, code, country);
-                    return this.addressService.save(addressModel).getId();
-                }
-            }
-        }
-
-        throw new Exception();
+    public UUID save(@Valid AddressDto addressDto) {
+        var addressModel = new AddressModel();
+        BeanUtils.copyProperties(addressDto, addressModel);
+        return this.addressService.save(addressModel).getId();
     }
 
-    public void findAll() {
+    public List<AddressDto> findAll() {
         List<AddressModel> addresses = this.addressService.findAll();
+        List<AddressDto> addressDtos = new ArrayList<>();
+
         for(AddressModel address: addresses ) {
-            this.panelService.print(address.toString());
+            var addressDto = new AddressDto();
+            BeanUtils.copyProperties(address, addressDto);
+            addressDtos.add(addressDto);
         }
+        
+        return addressDtos;
+    }
+
+    public AddressDto findById(UUID id) throws EntityNotFoundException {
+        var addressDto = new AddressDto();
+        var addressModel = this.addressService.findById(id);
+        BeanUtils.copyProperties(addressModel, addressDto);
+        return addressDto;
     }
 
     public void update(UUID id, String number) throws EntityNotFoundException {

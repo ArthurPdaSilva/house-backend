@@ -27,27 +27,7 @@ public class HouseModel implements Serializable {
     @JoinColumn(name = "ADDRESS_ID")
     private AddressModel address;
 
-    public HouseModel() {
-    }
-
-    public HouseModel(String owner, String color, Float height, Float width) {
-        this.owner = owner;
-        this.color = color;
-        this.height = height;
-        this.width = width;
-    }
-
-    @Override
-    public String toString() {
-        return "House: \n" +
-                "id: " + id +
-                ", owner: " + owner + '\'' +
-                ", color: " + color + '\'' +
-                ", height: " + height +
-                ", width: " + width +
-                ", Address_ID: " + address.getId() + "\n" +
-                "----------------------------------------------------------------------------------------------------------------------";
-    }
+    public HouseModel() {}
 
     public UUID getId() {
         return id;

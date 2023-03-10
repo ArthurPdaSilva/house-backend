@@ -27,25 +27,6 @@ public class AddressModel implements Serializable {
 
 	public AddressModel() {}
 
-	public AddressModel(String street, String number, String city, String code, String country) {
-		this.street = street;
-		this.number = number;
-		this.city = city;
-		this.code = code;
-		this.country = country;
-	}
-
-	@Override
-	public String toString() {
-		 return "Address: \n" +
-	                "id: " + id +
-	                ", street: " + street + '\'' +
-	                ", number: " + number + '\'' +
-	                ", city:  " + city +
-	                ", code: " + code +
-	                ", country: " + country + "\n" +
-	                "-----------------------------------------------------------------------------------------------------------------------------";
-	}
 	public UUID getId() {
 		return id;
 	}
