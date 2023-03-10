@@ -34,7 +34,7 @@ public class HouseApplication implements CommandLineRunner {
 	}
 
 	@Override
-	public void run(String... args) throws Exception {
+	public void run(String... args) {
 		boolean isOver = false;
 		String menu = "\n" + """
 			1 - Listing of houses
@@ -53,7 +53,14 @@ public class HouseApplication implements CommandLineRunner {
 				case "2" -> addressController.findAllAddress();
 				case "3" -> {
 					try {
-						this.creationMenuService.creation();
+						String[] addressAttributes = this.creationMenuService.creationAddress();
+						UUID addressId = this.addressController.create(addressAttributes[0], addressAttributes[1],
+								addressAttributes[2], addressAttributes[3], addressAttributes[4]);
+
+						String[] houseAttributes = this.creationMenuService.creationHouse();
+						this.houseController.save(houseAttributes[0], houseAttributes[1],
+								houseAttributes[2], houseAttributes[3], addressId );
+
 						panelService.print("Successfully registered!");
 					} catch (Exception e) {
 						panelService.printError(e.getMessage());

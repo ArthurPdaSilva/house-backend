@@ -26,4 +26,12 @@ public class AddressService {
 	public AddressModel save(AddressModel addressModel) {
 		return this.addressRepository.save(addressModel);
     }
+
+    public AddressModel findById(UUID addressId) throws AddressNotFoundException {
+		Optional<AddressModel> addressModelOptional = this.addressRepository.findById(addressId);
+		if(addressModelOptional.isEmpty()) {
+			throw new AddressNotFoundException();
+		}
+		return addressModelOptional.get();
+    }
 }

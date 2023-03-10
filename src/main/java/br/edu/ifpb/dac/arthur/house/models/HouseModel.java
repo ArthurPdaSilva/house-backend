@@ -45,7 +45,7 @@ public class HouseModel implements Serializable {
                 ", color: " + color + '\'' +
                 ", height: " + height +
                 ", width: " + width +
-                ", Address_ID: " + address.getId() +
+                ", Address_ID: " + address.getId() + "\n" +
                 "------------------------------------------------------------------";
     }
 

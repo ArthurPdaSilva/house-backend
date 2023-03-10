@@ -6,6 +6,7 @@ import br.edu.ifpb.dac.arthur.house.services.PanelService;
 import org.springframework.stereotype.Controller;
 
 import java.util.List;
+import java.util.UUID;
 
 
 @Controller
@@ -19,9 +20,9 @@ public class AddressController {
         this.panelService = panelService;
     }
 
-    public AddressModel create(String street, String number, String city, String code, String country) {
+    public UUID create(String street, String number, String city, String code, String country) {
         AddressModel addressModel = new AddressModel(street, number, city, code, country);
-        return this.addressService.save(addressModel);
+        return this.addressService.save(addressModel).getId();
     }
 
     public void findAllAddress() {

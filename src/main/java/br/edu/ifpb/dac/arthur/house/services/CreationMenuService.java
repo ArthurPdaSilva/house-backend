@@ -2,7 +2,6 @@ package br.edu.ifpb.dac.arthur.house.services;
 
 import br.edu.ifpb.dac.arthur.house.controllers.AddressController;
 import br.edu.ifpb.dac.arthur.house.controllers.HouseController;
-import br.edu.ifpb.dac.arthur.house.models.AddressModel;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -10,22 +9,13 @@ public class CreationMenuService {
 
     private final MessageService messageService;
     private final  PanelService panelService;
-    private final AddressController addressController;
-    private final HouseController houseController;
 
     public CreationMenuService(MessageService messageService, PanelService panelService, AddressController addressController, HouseController houseController) {
         this.messageService = messageService;
         this.panelService = panelService;
-        this.addressController = addressController;
-        this.houseController = houseController;
     }
 
-    public void creation() throws Exception {
-        AddressModel addressModel = this.creationAddress();
-        this.creationHouse(addressModel);
-    }
-
-    public AddressModel creationAddress() throws Exception {
+    public String[] creationAddress() throws Exception {
         panelService.print("First, what is the street?");
         String street = messageService.getResponse();
 
@@ -41,10 +31,10 @@ public class CreationMenuService {
         panelService.print("What is the country?");
         String country = messageService.getResponse();
 
-        return this.addressController.create(street, number, city, code, country);
+        return new String[]{street, number, city, code, country};
     }
 
-    public void creationHouse(AddressModel addressModel) throws Exception {
+    public String[] creationHouse() throws Exception {
         panelService.print("Ok, Who owns the house?");
         String owner = messageService.getResponse();
 
@@ -52,11 +42,11 @@ public class CreationMenuService {
         String color = messageService.getResponse();
 
         panelService.print("What is the height of the house?");
-        Float height = Float.parseFloat(messageService.getResponse());
+        String height = messageService.getResponse();
 
         panelService.print("What is the wide of the house?");
-        Float width = Float.parseFloat(messageService.getResponse());
+        String width = messageService.getResponse();
 
-        this.houseController.save(owner, color, height, width, addressModel);
+        return new String[]{owner, color, height, width};
     }
 }

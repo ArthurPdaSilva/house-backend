@@ -43,7 +43,7 @@ public class AddressModel implements Serializable {
 	                ", number: " + number + '\'' +
 	                ", city:  " + city +
 	                ", code: " + code +
-	                ", country: " + country +
+	                ", country: " + country + "\n" +
 	                "------------------------------------------------------------------";
 	}
 	public UUID getId() {
