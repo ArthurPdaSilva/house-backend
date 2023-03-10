@@ -15,7 +15,7 @@ public class CreationMenuService {
         this.panelService = panelService;
     }
 
-    public String[] creationAddress() throws Exception {
+    public String[] creationAddress() {
         panelService.print("First, what is the street?");
         String street = messageService.getResponse();
 
@@ -34,7 +34,7 @@ public class CreationMenuService {
         return new String[]{street, number, city, code, country};
     }
 
-    public String[] creationHouse() throws Exception {
+    public String[] creationHouse() {
         panelService.print("Ok, Who owns the house?");
         String owner = messageService.getResponse();
 

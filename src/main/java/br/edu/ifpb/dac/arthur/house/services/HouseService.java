@@ -18,16 +18,27 @@ public class HouseService {
         this.houseRepository = houseRepository;
     }
 
+    public void save(HouseModel houseModel) {
+        this.houseRepository.save(houseModel);
+    }
 
-    public Optional<HouseModel> findById(UUID id) {
-        return this.houseRepository.findById(id);
+    public HouseModel findById(UUID id) {
+        Optional<HouseModel> houseModelOptional = this.houseRepository.findById(id);
+        return houseModelOptional.get();
     }
 
     public List<HouseModel> findAll() {
         return this.houseRepository.findAll();
     }
 
-    public void save(HouseModel houseModel) {
-        this.houseRepository.save(houseModel);
+    public void update(UUID id, String owner) {
+        HouseModel houseModel = this.findById(id);
+        houseModel.setOwner(owner);
+        this.save(houseModel);
+    }
+
+    public void delete(UUID id) {
+        HouseModel houseModel = this.findById(id);
+        this.houseRepository.delete(houseModel);
     }
 }

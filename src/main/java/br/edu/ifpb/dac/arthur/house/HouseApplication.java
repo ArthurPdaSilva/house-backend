@@ -39,7 +39,7 @@ public class HouseApplication implements CommandLineRunner {
 		String menu = "\n" + """
 			1 - Listing of houses
 			2 - Listing of address
-			3 - Registration of houses
+			3 - Registration of houses and address
 			4 - Stop
 			""";
 
@@ -49,12 +49,12 @@ public class HouseApplication implements CommandLineRunner {
 			var optionSelected = messageService.getResponse();
 
 			switch (optionSelected) {
-				case "1" -> houseController.findAllHouses();
-				case "2" -> addressController.findAllAddress();
+				case "1" -> houseController.findAll();
+				case "2" -> addressController.findAll();
 				case "3" -> {
 					try {
 						String[] addressAttributes = this.creationMenuService.creationAddress();
-						UUID addressId = this.addressController.create(addressAttributes[0], addressAttributes[1],
+						UUID addressId = this.addressController.save(addressAttributes[0], addressAttributes[1],
 								addressAttributes[2], addressAttributes[3], addressAttributes[4]);
 
 						String[] houseAttributes = this.creationMenuService.creationHouse();
