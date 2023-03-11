@@ -1,6 +1,5 @@
 package br.edu.ifpb.dac.arthur.house.controllers;
 
-import br.edu.ifpb.dac.arthur.house.dtos.AddressDto;
 import br.edu.ifpb.dac.arthur.house.dtos.HouseDto;
 import br.edu.ifpb.dac.arthur.house.exceptions.EntityNotFoundException;
 import br.edu.ifpb.dac.arthur.house.models.HouseModel;

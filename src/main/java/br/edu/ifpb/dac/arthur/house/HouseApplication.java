@@ -59,7 +59,6 @@ public class HouseApplication implements CommandLineRunner {
 					}
 				}
 				case "2" -> {
-
 					List<AddressDto> addresses = addressController.findAll();
 					for(AddressDto address: addresses) {
 						panelService.print(address.toString());

@@ -12,7 +12,7 @@ public class CreationMenuService {
     private final MessageService messageService;
     private final  PanelService panelService;
 
-    public CreationMenuService(MessageService messageService, PanelService panelService, AddressController addressController, HouseController houseController) {
+    public CreationMenuService(MessageService messageService, PanelService panelService, HouseController houseController) {
         this.messageService = messageService;
         this.panelService = panelService;
     }

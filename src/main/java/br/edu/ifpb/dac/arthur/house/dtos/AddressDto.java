@@ -1,8 +1,5 @@
 package br.edu.ifpb.dac.arthur.house.dtos;
 
-import br.edu.ifpb.dac.arthur.house.models.AddressModel;
-import jakarta.persistence.Column;
-import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 

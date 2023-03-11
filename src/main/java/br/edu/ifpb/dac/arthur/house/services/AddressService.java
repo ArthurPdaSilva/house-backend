@@ -2,7 +2,6 @@ package br.edu.ifpb.dac.arthur.house.services;
 
 import br.edu.ifpb.dac.arthur.house.exceptions.EntityNotFoundException;
 import br.edu.ifpb.dac.arthur.house.models.AddressModel;
-import br.edu.ifpb.dac.arthur.house.models.AddressModel;
 import br.edu.ifpb.dac.arthur.house.repositories.AddressRepository;
 import org.springframework.stereotype.Service;
 
