@@ -19,13 +19,9 @@ public class HouseModel implements Serializable {
     @Column(nullable = false)
     private String color;
     @Column(nullable = false)
-    private Float height;
+    private String height;
     @Column(nullable = false)
-    private Float width;
-
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ADDRESS_ID")
-    private AddressModel address;
+    private String width;
 
     public HouseModel() {}
 
@@ -53,27 +49,20 @@ public class HouseModel implements Serializable {
         this.color = color;
     }
 
-    public Float getHeight() {
+    public String getHeight() {
         return height;
     }
 
-    public void setHeight(Float height) {
+    public void setHeight(String height) {
         this.height = height;
     }
 
-    public Float getWidth() {
+    public String getWidth() {
         return width;
     }
 
-    public void setWidth(Float width) {
+    public void setWidth(String width) {
         this.width = width;
     }
 
-    public AddressModel getAddress() {
-        return address;
-    }
-
-    public void setAddress(AddressModel address) {
-        this.address = address;
-    }
 }

@@ -3,6 +3,7 @@ package br.edu.ifpb.dac.arthur.house.services;
 import br.edu.ifpb.dac.arthur.house.exceptions.EntityNotFoundException;
 import br.edu.ifpb.dac.arthur.house.models.HouseModel;
 import br.edu.ifpb.dac.arthur.house.repositories.HouseRepository;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,8 +19,9 @@ public class HouseService {
         this.houseRepository = houseRepository;
     }
 
-    public void save(HouseModel houseModel) {
-        this.houseRepository.save(houseModel);
+    @Transactional
+    public HouseModel save(HouseModel houseModel) {
+        return this.houseRepository.save(houseModel);
     }
 
     public HouseModel findById(UUID id) throws EntityNotFoundException {

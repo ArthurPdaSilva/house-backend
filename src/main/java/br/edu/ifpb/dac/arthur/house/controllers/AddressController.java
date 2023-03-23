@@ -4,19 +4,22 @@ import br.edu.ifpb.dac.arthur.house.dtos.AddressDto;
 import br.edu.ifpb.dac.arthur.house.exceptions.EntityNotFoundException;
 import br.edu.ifpb.dac.arthur.house.models.AddressModel;
 import br.edu.ifpb.dac.arthur.house.services.AddressService;
-import br.edu.ifpb.dac.arthur.house.services.PanelService;
 import jakarta.validation.Valid;
 import org.springframework.beans.BeanUtils;
-import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.*;
 
-@Controller
+@RestController
+@CrossOrigin(origins = "*", maxAge = 3600)
+@RequestMapping("/address")
 public class AddressController {
 
     private final AddressService addressService;
 
-    public AddressController(AddressService addressService, PanelService panelService) {
+    public AddressController(AddressService addressService) {
         this.addressService = addressService;
     }
 

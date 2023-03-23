@@ -3,47 +3,41 @@ package br.edu.ifpb.dac.arthur.house.controllers;
 import br.edu.ifpb.dac.arthur.house.dtos.HouseDto;
 import br.edu.ifpb.dac.arthur.house.exceptions.EntityNotFoundException;
 import br.edu.ifpb.dac.arthur.house.models.HouseModel;
-import br.edu.ifpb.dac.arthur.house.services.AddressService;
+import br.edu.ifpb.dac.arthur.house.services.ConverterService;
 import br.edu.ifpb.dac.arthur.house.services.HouseService;
 import jakarta.validation.Valid;
 import org.springframework.beans.BeanUtils;
-import org.springframework.stereotype.Controller;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-@Controller
+@RestController
+@CrossOrigin(origins = "*", maxAge = 3600)
+@RequestMapping("/house")
 public class HouseController {
 
     private final HouseService houseService;
-    private final AddressService addressService;
+
+    private final ConverterService converterService;
 
 
-    public HouseController(HouseService houseService, AddressService addressService) {
+    public HouseController(HouseService houseService, ConverterService converterService) {
         this.houseService = houseService;
-        this.addressService = addressService;
+        this.converterService = converterService;
     }
 
-    public void save(@Valid HouseDto houseDto, UUID id) throws EntityNotFoundException {
-        var houseModel = new HouseModel();
-        var addressModel = this.addressService.findById(id);
-        BeanUtils.copyProperties(houseDto, houseModel);
-        houseModel.setAddress(addressModel);
-        this.houseService.save(houseModel);
+    @PostMapping
+    public ResponseEntity<Object> save(@RequestBody @Valid HouseDto houseDto) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(houseDto);
     }
 
-    public List<HouseDto> findAll() {
-        List<HouseModel> houses = this.houseService.findAll();
-        List<HouseDto> housesDtos = new ArrayList<>();
-
-        for(HouseModel house: houses ) {
-            var houseDto = new HouseDto();
-            BeanUtils.copyProperties(house, houseDto);
-            housesDtos.add(houseDto);
-        }
-
-        return housesDtos;
+    @GetMapping
+    public ResponseEntity<Object> find() {
+        return ResponseEntity.status(HttpStatus.CREATED).body("Foi");
     }
 
     public void update(UUID id, String owner) throws EntityNotFoundException {

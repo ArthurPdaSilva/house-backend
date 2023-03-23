@@ -1,8 +1,7 @@
 package br.edu.ifpb.dac.arthur.house.dtos;
 
-import br.edu.ifpb.dac.arthur.house.models.AddressModel;
-import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 public class HouseDto {
@@ -12,26 +11,12 @@ public class HouseDto {
     private String owner;
     @NotBlank
     private String color;
-    @NotBlank
-    @DecimalMin(value = "0.0", inclusive = false)
+
+    @NotNull
     private Float height;
-    @NotBlank
-    @DecimalMin(value = "0.0", inclusive = false)
+
+    @NotNull
     private Float width;
-
-    @NotBlank
-    private AddressModel address;
-
-    @Override
-    public String toString() {
-        return "House: \n" +
-                ", owner: " + owner + '\'' +
-                ", color: " + color + '\'' +
-                ", height: " + height +
-                ", width: " + width +
-                ", Address_ID: " + address.getId() + "\n" +
-                "----------------------------------------------------------------------------------------------------------------------";
-    }
 
     public HouseDto() {}
 
@@ -65,13 +50,5 @@ public class HouseDto {
 
     public void setWidth(Float width) {
         this.width = width;
-    }
-
-    public AddressModel getAddress() {
-        return address;
-    }
-
-    public void setAddress(AddressModel address) {
-        this.address = address;
     }
 }
