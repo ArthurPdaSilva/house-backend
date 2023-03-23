@@ -11,10 +11,8 @@ public class HouseDto {
     private String owner;
     @NotBlank
     private String color;
-
     @NotNull
     private Float height;
-
     @NotNull
     private Float width;
 

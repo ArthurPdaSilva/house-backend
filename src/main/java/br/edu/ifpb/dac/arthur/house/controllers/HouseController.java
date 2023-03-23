@@ -32,16 +32,25 @@ public class HouseController {
 
     @PostMapping
     public ResponseEntity<Object> save(@RequestBody @Valid HouseDto houseDto) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(houseDto);
+        var houseModel = converterService.dtoToHouseModel(houseDto);
+        houseService.save(houseModel);
+        return ResponseEntity.status(HttpStatus.CREATED).body(houseModel.getId());
     }
 
-    @GetMapping
-    public ResponseEntity<Object> find() {
-        return ResponseEntity.status(HttpStatus.CREATED).body("Foi");
+    @GetMapping("{id}")
+    public ResponseEntity<Object> findById(@PathVariable(value = "id") UUID id) {
+        try {
+            var houseModel = this.houseService.findById(id);
+            return ResponseEntity.status(HttpStatus.OK).body(houseModel);
+        } catch (Exception exception) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("House not found.");
+        }
     }
 
-    public void update(UUID id, String owner) throws EntityNotFoundException {
-        this.houseService.update(id, owner);
+    @PutMapping("{id}")
+    public ResponseEntity<Object> update(@PathVariable(value = "id") UUID id, @RequestBody @Valid HouseDto houseDto) throws EntityNotFoundException {
+        var houseModel = this.houseService.update(id, houseDto.getOwner());
+        return ResponseEntity.status(HttpStatus.OK).body(houseModel);
     }
 
     public void delete(UUID id) throws EntityNotFoundException {

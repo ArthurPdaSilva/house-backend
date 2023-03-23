@@ -14,14 +14,14 @@ public class HouseModel implements Serializable {
     @Id
     @GeneratedValue(strategy =  GenerationType.UUID)
     private UUID id;
-    @Column(nullable = false, unique = true, length = 10)
+    @Column(nullable = false, unique = true)
     private String owner;
     @Column(nullable = false)
     private String color;
     @Column(nullable = false)
-    private String height;
+    private Float height;
     @Column(nullable = false)
-    private String width;
+    private Float width;
 
     public HouseModel() {}
 
@@ -49,20 +49,19 @@ public class HouseModel implements Serializable {
         this.color = color;
     }
 
-    public String getHeight() {
+    public Float getHeight() {
         return height;
     }
 
-    public void setHeight(String height) {
+    public void setHeight(Float height) {
         this.height = height;
     }
 
-    public String getWidth() {
+    public Float getWidth() {
         return width;
     }
 
-    public void setWidth(String width) {
+    public void setWidth(Float width) {
         this.width = width;
     }
-
 }

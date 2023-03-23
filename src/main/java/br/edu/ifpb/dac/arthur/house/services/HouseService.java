@@ -36,10 +36,10 @@ public class HouseService {
         return this.houseRepository.findAll();
     }
 
-    public void update(UUID id, String owner) throws EntityNotFoundException {
+    public HouseModel update(UUID id, String owner) throws EntityNotFoundException {
         HouseModel houseModel = this.findById(id);
         houseModel.setOwner(owner);
-        this.save(houseModel);
+        return this.save(houseModel);
     }
 
     public void delete(UUID id) throws EntityNotFoundException {
