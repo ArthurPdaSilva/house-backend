@@ -33,7 +33,7 @@ public class HouseController {
     @PostMapping
     public ResponseEntity<Object> save(@RequestBody @Valid HouseDto houseDto) {
         var houseModel = converterService.dtoToHouseModel(houseDto);
-        houseService.save(houseModel);
+        this.houseService.save(houseModel);
         return ResponseEntity.status(HttpStatus.CREATED).body(houseModel.getId());
     }
 
