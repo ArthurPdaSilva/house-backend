@@ -25,19 +25,6 @@ public class AddressDto {
     @Size(min = 2, max = 50)
     private String country;
 
-
-    @Override
-    public String toString() {
-        return "Address: \n" +
-                "id: " + id +
-                ", street: " + street + '\'' +
-                ", number: " + number + '\'' +
-                ", city:  " + city +
-                ", code: " + code +
-                ", country: " + country + "\n" +
-                "-----------------------------------------------------------------------------------------------------------------------------";
-    }
-
     public UUID getId() {
         return id;
     }

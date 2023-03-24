@@ -34,8 +34,8 @@ public class HouseService {
         return houseModelOptional.get();
     }
 
-    public Page<House> findAll(Pageable pageable) {
-        return this.houseRepository.findAll(pageable);
+    public List<House> findAll() {
+        return this.houseRepository.findAll();
     }
 
     public House update(UUID id, String owner) throws EntityNotFoundException {

@@ -4,6 +4,8 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
+import java.util.UUID;
+
 public class HouseDto {
 
     @NotBlank
@@ -15,6 +17,8 @@ public class HouseDto {
     private Float height;
     @NotNull
     private Float width;
+    @NotNull
+    private UUID addressId;
 
     public HouseDto() {}
 
@@ -48,5 +52,13 @@ public class HouseDto {
 
     public void setWidth(Float width) {
         this.width = width;
+    }
+
+    public UUID getAddressId() {
+        return addressId;
+    }
+
+    public void setAddressId(UUID addressId) {
+        this.addressId = addressId;
     }
 }

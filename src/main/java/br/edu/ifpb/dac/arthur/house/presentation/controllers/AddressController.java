@@ -33,7 +33,7 @@ public class AddressController {
     public ResponseEntity<Object> save(@RequestBody @Valid AddressDto addressDto) {
         var addressModel = converterService.dtoToAddressModel(addressDto);
         this.addressService.save(addressModel);
-        return ResponseEntity.status(HttpStatus.CREATED).body(addressDto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(addressModel.getId());
     }
 
     @GetMapping("{id}")

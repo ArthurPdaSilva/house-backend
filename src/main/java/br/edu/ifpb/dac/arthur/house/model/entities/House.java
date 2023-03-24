@@ -23,6 +23,10 @@ public class House implements Serializable {
     @Column(nullable = false)
     private Float width;
 
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ADDRESS_ID")
+    private Address address;
+
     public House() {}
 
     public UUID getId() {
@@ -63,5 +67,13 @@ public class House implements Serializable {
 
     public void setWidth(Float width) {
         this.width = width;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
     }
 }
