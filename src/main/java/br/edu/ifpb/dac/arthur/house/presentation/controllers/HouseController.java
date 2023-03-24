@@ -2,7 +2,6 @@ package br.edu.ifpb.dac.arthur.house.presentation.controllers;
 
 import br.edu.ifpb.dac.arthur.house.model.entities.House;
 import br.edu.ifpb.dac.arthur.house.presentation.dtos.HouseDto;
-import br.edu.ifpb.dac.arthur.house.business.exceptions.EntityNotFoundException;
 import br.edu.ifpb.dac.arthur.house.business.services.ConverterService;
 import br.edu.ifpb.dac.arthur.house.business.services.HouseService;
 import jakarta.validation.Valid;
@@ -64,7 +63,13 @@ public class HouseController {
 
     }
 
-    public void delete(UUID id) throws EntityNotFoundException {
-        this.houseService.delete(id);
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Object> delete(@PathVariable(value = "id") UUID id) {
+        try {
+            this.houseService.delete(id);
+            return ResponseEntity.status(HttpStatus.OK).body("Successfully deleted house");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("House not found.");
+        }
     }
 }
