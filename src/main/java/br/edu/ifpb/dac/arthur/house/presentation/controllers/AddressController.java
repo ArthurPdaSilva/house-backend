@@ -31,7 +31,7 @@ public class AddressController {
 
     @PostMapping
     public ResponseEntity<Object> save(@RequestBody @Valid AddressDto addressDto) {
-        var addressModel = converterService.dtoToAddressModel(addressDto);
+        var addressModel = converterService.addressDtoToAddressModel(addressDto);
         this.addressService.save(addressModel);
         return ResponseEntity.status(HttpStatus.CREATED).body(addressModel.getId());
     }
@@ -47,8 +47,8 @@ public class AddressController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<Address>> findAll(@PageableDefault(page = 0, size = 10, sort = "id", direction = Sort.Direction.ASC) Pageable pageable) {
-        return ResponseEntity.status(HttpStatus.OK).body(addressService.findAll(pageable));
+    public ResponseEntity<List<Address>> findAll() {
+        return ResponseEntity.status(HttpStatus.OK).body(addressService.findAll());
     }
 
     @PutMapping("{id}")
@@ -57,7 +57,7 @@ public class AddressController {
             var addressModel = this.addressService.update(id, addressDto.getNumber());
             return ResponseEntity.status(HttpStatus.OK).body(addressModel);
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("House not found.");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Address not found.");
         }
 
     }
@@ -66,7 +66,7 @@ public class AddressController {
     public ResponseEntity<Object> delete(@PathVariable(value = "id") UUID id) {
         try {
             this.addressService.delete(id);
-            return ResponseEntity.status(HttpStatus.OK).body("Successfully deleted house");
+            return ResponseEntity.status(HttpStatus.OK).body("Successfully deleted address");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Address not found.");
         }

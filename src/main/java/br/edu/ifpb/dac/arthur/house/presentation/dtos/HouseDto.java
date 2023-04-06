@@ -8,6 +8,8 @@ import java.util.UUID;
 
 public class HouseDto {
 
+    private UUID id;
+
     @NotBlank
     @Size(min = 4, max = 50)
     private String owner;
@@ -21,6 +23,14 @@ public class HouseDto {
     private UUID addressId;
 
     public HouseDto() {}
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
 
     public String getOwner() {
         return owner;
