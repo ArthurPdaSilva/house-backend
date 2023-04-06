@@ -57,7 +57,7 @@ public class AddressController {
             var addressModel = this.addressService.update(id, addressDto.getNumber());
             return ResponseEntity.status(HttpStatus.OK).body(addressModel);
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Address not found.");
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("Address not found or is a foreign key.");
         }
 
     }
