@@ -6,19 +6,12 @@ import br.edu.ifpb.dac.arthur.house.presentation.dtos.HouseDto;
 import br.edu.ifpb.dac.arthur.house.business.services.ConverterService;
 import br.edu.ifpb.dac.arthur.house.business.services.HouseService;
 import jakarta.validation.Valid;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
-import java.util.function.Function;
 
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -40,7 +33,7 @@ public class HouseController {
 
     @PostMapping
     public ResponseEntity<Object> save(@RequestBody @Valid HouseDto houseDto) {
-        var houseModel = converterService.dtoToHouseModel(houseDto);
+        var houseModel = converterService.houseDtoToHouseModel(houseDto);
         try {
             houseModel.setAddress(addressService.findById(houseDto.getAddressId()));
             this.houseService.save(houseModel);
@@ -55,7 +48,7 @@ public class HouseController {
     public ResponseEntity<Object> findById(@PathVariable(value = "id") UUID id) {
         try {
             var houseModel = this.houseService.findById(id);
-            var houseDto = this.converterService.HouseModelToDto(houseModel);
+            var houseDto = this.converterService.houseModelToHouseDto(houseModel);
             return ResponseEntity.status(HttpStatus.OK).body(houseDto);
         } catch (Exception exception) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("House not found.");
@@ -65,7 +58,7 @@ public class HouseController {
     @GetMapping
     public ResponseEntity<List<HouseDto>> findAll() {
         List<House> houses = houseService.findAll();
-        List<HouseDto> housesDto = this.converterService.housesModelToDtos(houses);
+        List<HouseDto> housesDto = this.converterService.housesModelToHouseDtos(houses);
         return ResponseEntity.status(HttpStatus.OK).body(housesDto);
     }
 
@@ -73,7 +66,8 @@ public class HouseController {
     public ResponseEntity<Object> update(@PathVariable(value = "id") UUID id, @RequestBody @Valid HouseDto houseDto) {
         try {
             var houseModel = this.houseService.update(id, houseDto.getOwner());
-            return ResponseEntity.status(HttpStatus.OK).body(houseModel);
+            var houseDtos = this.converterService.houseModelToHouseDto(houseModel);
+            return ResponseEntity.status(HttpStatus.OK).body(houseDtos);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("House not found.");
         }

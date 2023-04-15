@@ -13,36 +13,36 @@ import java.util.List;
 @Service
 public class ConverterService {
 
-    public House dtoToHouseModel(HouseDto houseDto) {
+    public House houseDtoToHouseModel(HouseDto houseDto) {
         var houseModel = new House();
         BeanUtils.copyProperties(houseDto, houseModel);
         return houseModel;
     }
 
-    public HouseDto HouseModelToDto(House house) {
+    public HouseDto houseModelToHouseDto(House house) {
         var houseDto = new HouseDto();
         BeanUtils.copyProperties(house, houseDto);
         houseDto.setAddressId(house.getAddress().getId());
         return houseDto;
     }
 
-    public List<HouseDto> housesModelToDtos(List<House> houses) {
+    public List<HouseDto> housesModelToHouseDtos(List<House> houses) {
         List<HouseDto> housesDto = new ArrayList<>();
         for(House house: houses) {
-            HouseDto houseDto = this.HouseModelToDto(house);
+            HouseDto houseDto = this.houseModelToHouseDto(house);
             housesDto.add(houseDto);
         }
 
         return housesDto;
     }
 
-    public Address dtoToAddressModel(AddressDto addressDto) {
+    public Address addressDtoToAddressModel(AddressDto addressDto) {
         var addressModel = new Address();
         BeanUtils.copyProperties(addressDto, addressModel);
         return addressModel;
     }
 
-    public AddressDto AddressModelToDto(Address address) {
+    public AddressDto addressModelToAddressDto(Address address) {
         var addressDto = new AddressDto();
         BeanUtils.copyProperties(address, addressDto);
         return addressDto;
