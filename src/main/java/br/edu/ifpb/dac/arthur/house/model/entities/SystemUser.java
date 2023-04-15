@@ -1,13 +1,14 @@
 package br.edu.ifpb.dac.arthur.house.model.entities;
 
 import jakarta.persistence.*;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
 
+@Entity
+@Table(name = "TB_USER")
 public class SystemUser implements UserDetails {
 
     private static final long serialVersionUID = 1L;
@@ -65,7 +66,7 @@ public class SystemUser implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return false;
+        return true;
     }
 
     public void setPassword(String password) {

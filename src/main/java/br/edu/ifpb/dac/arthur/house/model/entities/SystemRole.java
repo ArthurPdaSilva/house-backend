@@ -1,13 +1,12 @@
 package br.edu.ifpb.dac.arthur.house.model.entities;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
 
 import java.util.UUID;
 
+@Entity
+@Table(name = "TB_ROLE")
 public class SystemRole implements GrantedAuthority {
 
     @Id
