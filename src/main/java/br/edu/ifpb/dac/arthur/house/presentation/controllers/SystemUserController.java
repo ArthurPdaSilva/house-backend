@@ -4,7 +4,6 @@ import br.edu.ifpb.dac.arthur.house.business.interfaces.SystemUserService;
 import br.edu.ifpb.dac.arthur.house.business.services.ConverterService;
 import br.edu.ifpb.dac.arthur.house.model.entities.SystemUser;
 import br.edu.ifpb.dac.arthur.house.presentation.dtos.SystemUserDto;
-import br.edu.ifpb.dac.arthur.house.presentation.dtos.SystemUserDto;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -57,26 +56,24 @@ public class SystemUserController {
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<Object> update(@PathVariable(value = "id") UUID id, @RequestBody @Valid SystemUserDto houseDto) {
+    public ResponseEntity<Object> update(@PathVariable(value = "id") UUID id, @RequestBody @Valid SystemUserDto systemUserDto) {
         try {
-//            var houseModel = this.houseService.update(id, houseDto.getOwner());
-//            var houseDtos = this.converterService.houseModelToSystemUserDto(houseModel);
-//            return ResponseEntity.status(HttpStatus.OK).body(houseDtos);
+            var systemUserModel = this.converterService.systemUserDtoToSystemUserModel(systemUserDto);
+            var systemUser = this.systemUserService.update(systemUserModel);
+            var newSystemUserDto = this.converterService.systemUserModelToSystemDto(systemUser);
+            return ResponseEntity.status(HttpStatus.OK).body(newSystemUserDto);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found.");
         }
-
-        return null;
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> delete(@PathVariable(value = "id") UUID id) {
         try {
-//            this.houseService.delete(id);
-//            return ResponseEntity.status(HttpStatus.OK).body("Successfully deleted house");
+            this.systemUserService.delete(id);
+            return ResponseEntity.status(HttpStatus.OK).body("Successfully deleted house");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User not found.");
         }
-        return null;
     }
 }
