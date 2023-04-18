@@ -1,9 +1,11 @@
 package br.edu.ifpb.dac.arthur.house.business.services;
 
 import br.edu.ifpb.dac.arthur.house.model.entities.Address;
+import br.edu.ifpb.dac.arthur.house.model.entities.SystemUser;
 import br.edu.ifpb.dac.arthur.house.presentation.dtos.AddressDto;
 import br.edu.ifpb.dac.arthur.house.presentation.dtos.HouseDto;
 import br.edu.ifpb.dac.arthur.house.model.entities.House;
+import br.edu.ifpb.dac.arthur.house.presentation.dtos.SystemUserDto;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
@@ -46,5 +48,27 @@ public class ConverterService {
         var addressDto = new AddressDto();
         BeanUtils.copyProperties(address, addressDto);
         return addressDto;
+    }
+
+    public SystemUser systemUserDtoToSystemUserModel(SystemUserDto systemUserDto) {
+        var systemUser = new SystemUser();
+        BeanUtils.copyProperties(systemUserDto, systemUser);
+        return systemUser;
+    }
+
+    public SystemUserDto systemUserModelToSystemDto(SystemUser systemUser) {
+        var systemUserDto = new SystemUserDto();
+        BeanUtils.copyProperties(systemUser, systemUserDto);
+        return systemUserDto;
+    }
+
+    public List<SystemUserDto> systemUsersModelToSystemDtos(List<SystemUser> systemUsers) {
+        List<SystemUserDto> systemUsersDtos = new ArrayList<>();
+        for(SystemUser systemUser: systemUsers) {
+            SystemUserDto systemUserDto = this.systemUserModelToSystemDto(systemUser);
+            systemUsersDtos.add(systemUserDto);
+        }
+
+        return systemUsersDtos;
     }
 }

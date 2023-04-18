@@ -14,7 +14,7 @@ public interface SystemUserService extends UserDetailsService {
     SystemUser findById(UUID id);
     SystemUser findByEmail(String email);
     SystemUser findByUsername(String username);
-    Iterable<SystemUser> findAll();
+    List<SystemUser> findAll();
     List<SystemUser> find(SystemUser filter);
 
 

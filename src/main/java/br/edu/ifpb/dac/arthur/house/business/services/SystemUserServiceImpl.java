@@ -5,9 +5,7 @@ import br.edu.ifpb.dac.arthur.house.business.interfaces.SystemRoleService;
 import br.edu.ifpb.dac.arthur.house.business.interfaces.SystemUserService;
 import br.edu.ifpb.dac.arthur.house.model.entities.SystemRole;
 import br.edu.ifpb.dac.arthur.house.model.entities.SystemUser;
-import br.edu.ifpb.dac.arthur.house.model.repositories.SystemRoleRepository;
 import br.edu.ifpb.dac.arthur.house.model.repositories.SystemUserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -63,17 +61,19 @@ public class SystemUserServiceImpl implements SystemUserService {
 
     @Override
     public SystemUser findByEmail(String email) {
-        return null;
+        Optional<SystemUser> systemUser = this.systemUserRepository.findByEmail(email);
+        return systemUser.orElse(null);
     }
 
     @Override
     public SystemUser findByUsername(String username) {
-        return null;
+        Optional<SystemUser> systemUser = this.systemUserRepository.findByUsername(username);
+        return systemUser.orElse(null);
     }
 
     @Override
-    public Iterable<SystemUser> findAll() {
-        return null;
+    public List<SystemUser> findAll() {
+        return this.systemUserRepository.findAll();
     }
 
     @Override
