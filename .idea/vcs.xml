@@ -2,7 +2,7 @@
 <project version="4">
   <component name="VcsDirectoryMappings">
     <mapping directory="$PROJECT_DIR$" vcs="Git" />
-    <mapping directory="$PROJECT_DIR$/src" vcs="Perforce" />
-    <mapping directory="$PROJECT_DIR$/src/main" vcs="Perforce" />
+    <mapping directory="$PROJECT_DIR$/src" vcs="Git" />
+    <mapping directory="$PROJECT_DIR$/src/main" vcs="Git" />
   </component>
 </project>
