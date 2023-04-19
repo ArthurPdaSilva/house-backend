@@ -11,7 +11,10 @@ public class TokenDTO {
     @NotNull
     private SystemUserDto systemUserDto;
 
-    public TokenDTO() {}
+    public TokenDTO(String token, SystemUserDto systemUserDto) {
+        this.token = token;
+        this.systemUserDto = systemUserDto;
+    }
 
     public String getToken() {
         return token;
