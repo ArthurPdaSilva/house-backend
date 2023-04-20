@@ -1,13 +1,12 @@
 package br.edu.ifpb.dac.arthur.house.presentation.dtos;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
-import java.util.UUID;
 
 public class AddressDto {
 
-    private UUID id;
+    private Long id;
 
     @NotBlank
     @Size(min = 2, max = 50)
@@ -25,11 +24,11 @@ public class AddressDto {
     @Size(min = 2, max = 50)
     private String country;
 
-    public UUID getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

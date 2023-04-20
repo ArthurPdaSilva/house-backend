@@ -2,13 +2,14 @@ package br.edu.ifpb.dac.arthur.house.presentation.controllers;
 
 import br.edu.ifpb.dac.arthur.house.business.interfaces.SystemUserService;
 import br.edu.ifpb.dac.arthur.house.business.services.ConverterService;
+import br.edu.ifpb.dac.arthur.house.business.services.SystemUserServiceImpl;
 import br.edu.ifpb.dac.arthur.house.model.entities.SystemUser;
 import br.edu.ifpb.dac.arthur.house.presentation.dtos.SystemUserDto;
-import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.UUID;
 
@@ -17,23 +18,25 @@ import java.util.UUID;
 @RequestMapping("/user")
 public class SystemUserController {
 
-    private final SystemUserService systemUserService;
+    private final SystemUserServiceImpl systemUserService;
 
     private final ConverterService converterService;
 
 
-    public SystemUserController(SystemUserService systemUserService, ConverterService converterService) {
-        this.systemUserService = systemUserService;
+    public SystemUserController(SystemUserServiceImpl systemUserService1, ConverterService converterService) {
+        this.systemUserService = systemUserService1;
         this.converterService = converterService;
     }
 
     @PostMapping
     public ResponseEntity<Object> save(@RequestBody @Valid SystemUserDto systemUserDto) {
         try {
-            var SystemUserModel = this.converterService.systemUserDtoToSystemUserModel(systemUserDto);
-            return ResponseEntity.status(HttpStatus.CREATED).body(SystemUserModel.getId());
+            var systemUserModel = this.converterService.systemUserDtoToSystemUserModel(systemUserDto);
+            var saveSystemUser = this.systemUserService.save(systemUserModel);
+            System.out.println(saveSystemUser);
+            return ResponseEntity.status(HttpStatus.CREATED).body(saveSystemUser);
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Failed.");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
         }
     }
 
@@ -56,7 +59,7 @@ public class SystemUserController {
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<Object> update(@PathVariable(value = "id") UUID id, @RequestBody @Valid SystemUserDto systemUserDto) {
+    public ResponseEntity<Object> update(@PathVariable(value = "id")UUID id, @RequestBody @Valid SystemUserDto systemUserDto) {
         try {
             var systemUserModel = this.converterService.systemUserDtoToSystemUserModel(systemUserDto);
             var systemUser = this.systemUserService.update(systemUserModel);
@@ -68,7 +71,7 @@ public class SystemUserController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Object> delete(@PathVariable(value = "id") UUID id) {
+    public ResponseEntity<Object> delete(@PathVariable(value = "id")UUID id) {
         try {
             this.systemUserService.delete(id);
             return ResponseEntity.status(HttpStatus.OK).body("Successfully deleted house");

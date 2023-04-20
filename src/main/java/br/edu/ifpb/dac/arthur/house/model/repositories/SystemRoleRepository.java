@@ -8,6 +8,6 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Repository
-public interface SystemRoleRepository extends JpaRepository<SystemRole, UUID> {
+public interface SystemRoleRepository extends JpaRepository<SystemRole, Long> {
     Optional<SystemRole> findByName(String  name);
 }

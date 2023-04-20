@@ -1,8 +1,7 @@
 package br.edu.ifpb.dac.arthur.house.presentation.dtos;
 
-import jakarta.validation.constraints.NotBlank;
+import javax.validation.constraints.NotBlank;
 
-import java.util.UUID;
 
 public class LoginDto {
 

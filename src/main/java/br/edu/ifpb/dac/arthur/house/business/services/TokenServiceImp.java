@@ -6,7 +6,7 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import jakarta.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -95,7 +95,7 @@ public class TokenServiceImp implements TokenService {
     public String get(HttpServletRequest httpServletRequest) {
         String authorization = httpServletRequest.getHeader("Authorization");
 
-        if(authorization.startsWith("bearer"))
+        if(authorization != null && authorization.startsWith("bearer"))
             return authorization.split(" ")[1];
         return null;
     }

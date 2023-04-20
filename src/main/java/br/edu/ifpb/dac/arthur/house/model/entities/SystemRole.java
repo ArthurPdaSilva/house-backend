@@ -1,17 +1,15 @@
 package br.edu.ifpb.dac.arthur.house.model.entities;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
-
-import java.util.UUID;
 
 @Entity
 @Table(name = "TB_ROLE")
 public class SystemRole implements GrantedAuthority {
 
     @Id
-    @GeneratedValue(strategy =  GenerationType.UUID)
-    private UUID id;
+    @GeneratedValue(strategy =  GenerationType.IDENTITY)
+    private Long id;
 
     @Column(nullable = false)
     private String name;
@@ -24,11 +22,11 @@ public class SystemRole implements GrantedAuthority {
         return this.getName();
     }
 
-    public UUID getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

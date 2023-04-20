@@ -8,6 +8,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="house-backend" />
         <module name="demo" />
+        <module name="house-backend-master" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -20,6 +21,7 @@
       <module name="demo" options="-parameters" />
       <module name="house" options="-parameters" />
       <module name="house-backend" options="-parameters" />
+      <module name="house-backend-master" options="-parameters" />
       <module name="house-project" options="-parameters" />
     </option>
   </component>

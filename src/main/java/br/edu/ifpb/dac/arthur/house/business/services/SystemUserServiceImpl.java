@@ -32,15 +32,17 @@ public class SystemUserServiceImpl implements SystemUserService {
 
     @Override
     public SystemUser save(SystemUser systemUser) {
-        if(findById(systemUser.getId()) != null) {
+        if(findById(systemUser.getId()) == null) {
             passwordEncoderService.encrypt(systemUser);
             List<SystemRole> roles = new ArrayList<>();
             roles.add(systemRoleService.findDefault());
             systemUser.setRoles(roles);
             return this.systemUserRepository.save(systemUser);
+        } else {
+            throw  new IllegalStateException("User is already in the database");
         }
 
-        throw  new IllegalStateException("User is already in the database");
+
     }
 
     @Override

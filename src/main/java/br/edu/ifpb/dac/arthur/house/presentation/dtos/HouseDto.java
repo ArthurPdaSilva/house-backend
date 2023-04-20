@@ -1,14 +1,12 @@
 package br.edu.ifpb.dac.arthur.house.presentation.dtos;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
-
-import java.util.UUID;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 public class HouseDto {
 
-    private UUID id;
+    private Long id;
 
     @NotBlank
     @Size(min = 4, max = 50)
@@ -20,15 +18,15 @@ public class HouseDto {
     @NotNull
     private Float width;
     @NotNull
-    private UUID addressId;
+    private Long addressId;
 
     public HouseDto() {}
 
-    public UUID getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -64,11 +62,11 @@ public class HouseDto {
         this.width = width;
     }
 
-    public UUID getAddressId() {
+    public Long getAddressId() {
         return addressId;
     }
 
-    public void setAddressId(UUID addressId) {
+    public void setAddressId(Long addressId) {
         this.addressId = addressId;
     }
 }

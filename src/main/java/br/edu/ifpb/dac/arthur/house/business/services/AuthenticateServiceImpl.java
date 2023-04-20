@@ -28,16 +28,18 @@ public class AuthenticateServiceImpl implements AuthenticateService {
 
     @Override
     public String login(String username, String password) {
-        Authentication authentication = authenticationManager
-                .authenticate(new UsernamePasswordAuthenticationToken(username, password));
-
-        SystemUser systemUser = systemUserService.findByUsername(username);
-        return  tokenService.generate(systemUser);
+        Authentication authentication =
+                authenticationManager.authenticate(
+                        new UsernamePasswordAuthenticationToken(username, password));
+        SystemUser user = this.systemUserService.findByUsername(username);
+        return tokenService.generate(user);
     }
+
 
     @Override
     public SystemUser getLoggedUser() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Authentication authentication = SecurityContextHolder.getContext()
+                .getAuthentication();
         return (SystemUser) authentication.getPrincipal();
     }
 }

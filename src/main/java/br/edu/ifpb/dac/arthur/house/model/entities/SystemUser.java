@@ -1,6 +1,8 @@
 package br.edu.ifpb.dac.arthur.house.model.entities;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
+
+import com.fasterxml.uuid.Generators;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
@@ -14,7 +16,6 @@ public class SystemUser implements UserDetails {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy =  GenerationType.UUID)
     private UUID id;
 
     @Column(nullable = false)
@@ -32,7 +33,9 @@ public class SystemUser implements UserDetails {
     @ManyToMany(fetch = FetchType.EAGER)
     private List<SystemRole> roles;
 
-    public SystemUser() {}
+    public SystemUser() {
+        this.id = Generators.randomBasedGenerator().generate();
+    }
 
     @Override
     public Collection<SystemRole> getAuthorities() {
@@ -89,7 +92,7 @@ public class SystemUser implements UserDetails {
         this.name = name;
     }
 
-    private void setUsername(String username) {
+    public void setUsername(String username) {
         this.username = username;
     }
 

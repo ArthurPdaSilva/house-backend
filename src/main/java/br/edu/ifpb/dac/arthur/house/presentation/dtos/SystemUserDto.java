@@ -1,13 +1,11 @@
 package br.edu.ifpb.dac.arthur.house.presentation.dtos;
 
-import jakarta.persistence.Column;
-import jakarta.validation.constraints.NotBlank;
+import javax.validation.constraints.NotBlank;
 
-import java.util.UUID;
 
 public class SystemUserDto {
 
-    private UUID id;
+    private Long id;
 
     @NotBlank
     private String name;
@@ -23,11 +21,11 @@ public class SystemUserDto {
 
     public SystemUserDto() {}
 
-    public UUID getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(UUID id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

@@ -5,13 +5,12 @@ import br.edu.ifpb.dac.arthur.house.model.entities.House;
 import br.edu.ifpb.dac.arthur.house.presentation.dtos.HouseDto;
 import br.edu.ifpb.dac.arthur.house.business.services.ConverterService;
 import br.edu.ifpb.dac.arthur.house.business.services.HouseService;
-import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
-import java.util.UUID;
 
 @RestController
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -45,7 +44,7 @@ public class HouseController {
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<Object> findById(@PathVariable(value = "id") UUID id) {
+    public ResponseEntity<Object> findById(@PathVariable(value = "id") Long id) {
         try {
             var houseModel = this.houseService.findById(id);
             var houseDto = this.converterService.houseModelToHouseDto(houseModel);
@@ -63,7 +62,7 @@ public class HouseController {
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<Object> update(@PathVariable(value = "id") UUID id, @RequestBody @Valid HouseDto houseDto) {
+    public ResponseEntity<Object> update(@PathVariable(value = "id") Long id, @RequestBody @Valid HouseDto houseDto) {
         try {
             var houseModel = this.houseService.update(id, houseDto.getOwner());
             var houseDtos = this.converterService.houseModelToHouseDto(houseModel);
@@ -75,7 +74,7 @@ public class HouseController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Object> delete(@PathVariable(value = "id") UUID id) {
+    public ResponseEntity<Object> delete(@PathVariable(value = "id") Long id) {
         try {
             this.houseService.delete(id);
             return ResponseEntity.status(HttpStatus.OK).body("Successfully deleted house");

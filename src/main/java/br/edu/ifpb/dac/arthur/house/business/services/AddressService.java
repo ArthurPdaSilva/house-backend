@@ -7,8 +7,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
-
 
 @Service
 public class AddressService {
@@ -23,7 +21,7 @@ public class AddressService {
 		return this.addressRepository.save(address);
     }
 
-	public Address findById(UUID id) throws EntityNotFoundException {
+	public Address findById(Long id) throws EntityNotFoundException {
 		Optional<Address> addressModelOptional = this.addressRepository.findById(id);
 		if(addressModelOptional.isEmpty()) {
 			throw new EntityNotFoundException();
@@ -36,13 +34,13 @@ public class AddressService {
 		return this.addressRepository.findAll();
 	}
 
-	public Address update(UUID id, String number) throws EntityNotFoundException  {
+	public Address update(Long id, String number) throws EntityNotFoundException  {
 		Address address = this.findById(id);
 		address.setNumber(number);
 		return this.save(address);
 	}
 
-	public void delete(UUID id) throws EntityNotFoundException {
+	public void delete(Long id) throws EntityNotFoundException {
 		Address address = this.findById(id);
 		this.addressRepository.delete(address);
 	}

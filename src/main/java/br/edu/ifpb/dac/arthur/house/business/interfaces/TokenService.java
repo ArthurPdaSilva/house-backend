@@ -4,8 +4,8 @@ package br.edu.ifpb.dac.arthur.house.business.interfaces;
 import br.edu.ifpb.dac.arthur.house.model.entities.SystemUser;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
-import jakarta.servlet.http.HttpServletRequest;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.UUID;
 
 public interface TokenService {
